@@ -1,0 +1,42 @@
+<div class="container mt-4">
+
+  <h3 class="mb-3 text-center">Lista de Empréstimos</h3>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Moeda</th>
+      <th>Valor Obtido</th>
+      <th>Data Empréstimo</th>
+      <th>Data Vencimento</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let emprestimo of emprestimos">
+      <tr>
+        <td>{{ emprestimo.moeda }}</td>
+        <td>{{ emprestimo.valorObtido | currency }}</td>
+        <td>{{ emprestimo.dataEmprestimo | date:'dd/MM/yyyy' }}</td>
+        <td>{{ emprestimo.dataVencimento | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <button class="btn btn-info btn-sm me-2" (click)="toggleCollapse(emprestimo)">
+            Detalhes
+          </button>
+          <button class="btn btn-warning btn-sm me-2">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deletarEmprestimo(emprestimo.id)">Deletar</button>
+        </td>
+      </tr>
+      <tr *ngIf="emprestimo.expandido">
+        <td colspan="5">
+          <div class="p-1 bg-light border rounded d-flex flex-row justify-content-center align-items-center">
+            <p class="m-2"><strong>Taxa de conversão: </strong>{{ emprestimo.taxaConversao }}</p>
+            <p class="m-2"><strong>Valor final com juros: </strong>{{ emprestimo.valorFinal | currency }}</p>
+            <p class="m-2"><strong>Meses de financiamento: </strong>{{ emprestimo.meses}}</p>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>

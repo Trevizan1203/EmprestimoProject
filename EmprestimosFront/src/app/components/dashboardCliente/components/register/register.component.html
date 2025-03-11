@@ -1,0 +1,41 @@
+ <div class="d-flex bg-primary flex-column justify-content-center align-items-center vh-100">
+        <div class="card p-4 shadow" style="max-height: 5000px; max-width: 400px;">
+          <h4 class="text-center mb-3">Cadastro de Cliente</h4>
+          <form [formGroup]="clientesForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome</label>
+              <input type="text" class="form-control" id="nome" placeholder="Digite o nome" required formControlName = "nome">
+            </div>
+            <div class="mb-3">
+              <label for="cpf" class="form-label">CPF</label>
+              <input type="text" class="form-control" id="cpf" placeholder="Digite o CPF" required formControlName = "cpf">
+              <div *ngIf="clientesForm.get('cpf')?.touched && clientesForm.get('cpf')?.invalid" class="text-danger">
+                <div *ngIf="clientesForm.get('cpf')?.errors?.['required']">O CPF é obrigatório.</div>
+                <div *ngIf="clientesForm.get('cpf')?.errors?.['pattern']">O CPF deve conter apenas números.</div>
+                <div *ngIf="clientesForm.get('cpf')?.errors?.['minlength'] || clientesForm.get('cpf')?.errors?.['maxlength']">
+                  O CPF deve ter 11 dígitos.
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">E-mail</label>
+              <input type="email" class="form-control" id="email" placeholder="Digite o e-mail" required formControlName = "email">
+              <div *ngIf="clientesForm.get('email')?.touched && clientesForm.get('email')?.invalid" class="text-danger">
+                <div *ngIf="clientesForm.get('email')?.errors?.['required']">O e-mail é obrigatório.</div>
+                <div *ngIf="clientesForm.get('email')?.errors?.['email']">Digite um e-mail válido.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="telefone" class="form-label">Telefone</label>
+              <input type="tel" class="form-control" id="telefone" placeholder="Digite o telefone" required formControlName = "telefone">
+              <div *ngIf="clientesForm.get('telefone')?.touched && clientesForm.get('telefone')?.invalid" class="text-danger">
+                <div *ngIf="clientesForm.get('telefone')?.errors?.['required']">O telefone é obrigatório.</div>
+                <div *ngIf="clientesForm.get('telefone')?.errors?.['pattern']">O telefone deve conter apenas números.</div>
+                <div *ngIf="clientesForm.get('telefone')?.errors?.['minlength']">O telefone deve ter pelo menos 11 dígitos.</div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+          </form>
+        </div>
+  </div>

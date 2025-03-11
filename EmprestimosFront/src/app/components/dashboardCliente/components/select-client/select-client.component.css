@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: bold;
+  text-align: center;
+  border-left: 1px solid lightgray;
+  border-right: 1px solid lightgray;
+}
+
+td {
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid lightgray;
+}
+
+tr {
+  background-color: blue;
+}
+
+.header {
+  background-color: #008cff;
+}
+
+.table-container {
+  max-height: 400px;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table-body {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+
+
+
