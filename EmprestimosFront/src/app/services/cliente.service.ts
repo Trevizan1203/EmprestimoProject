@@ -19,13 +19,13 @@ export class ClienteService {
   }
 
   getClientes(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/getAllClientes`).pipe(
+    return this.http.get<any>(`${this.apiUrl}`).pipe(
       catchError(this.handleError)
     );
   }
 
   registerCliente(clienteData: ClienteModel): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create`, clienteData).pipe(
+    return this.http.post<any>(`${this.apiUrl}`, clienteData).pipe(
       catchError(this.handleError)
     );
   }

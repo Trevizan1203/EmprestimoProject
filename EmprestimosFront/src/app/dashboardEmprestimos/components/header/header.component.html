@@ -43,8 +43,11 @@
           <div class="me-3">
             <label for="dataVencimento" class="form-label text-light">Data de Vencimento</label>
             <input type="date" id="dataVencimento" class="form-control" formControlName="dataVencimento" required>
+            <div *ngIf="isDataInvalida() && emprestimoForm.get('dataVencimento')?.touched" class="text-danger bg-light rounded-3 my-2 px-1">
+              <small>Data de vencimento incorreta.</small>
+            </div>
           </div>
-          <button type="submit" class="btn btn-success me-3">Criar Empréstimo</button>
+          <button type="submit" class="btn btn-success me-3" [disabled]="isDataInvalida()">Criar Empréstimo</button>
           <button type="button" class="btn btn-secondary" (click)="exibeForms()" >Cancelar</button>
         </form>
       </div>

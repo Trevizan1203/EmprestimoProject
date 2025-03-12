@@ -22,7 +22,7 @@ public class EmprestimoController {
         this.emprestimoService = emprestimoService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Void> createEmprestimo(@RequestBody EmprestimoRequestDTO dto) {
         emprestimoService.createEmprestimo(dto);
         return ResponseEntity.ok().build();
@@ -33,7 +33,7 @@ public class EmprestimoController {
         return ResponseEntity.ok(emprestimoService.getEmprestimoById(id));
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<Emprestimo>> listEmprestimos() {
         return ResponseEntity.ok(emprestimoService.getAllEmprestimos());
     }

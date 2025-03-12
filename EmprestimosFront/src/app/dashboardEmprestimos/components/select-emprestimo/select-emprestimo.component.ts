@@ -33,6 +33,13 @@ export class SelectEmprestimoComponent implements OnInit {
     });
   }
 
+  isDataInvalida(): boolean {
+    const dataEmprestimo = this.editForm.get('dataEmprestimo')?.value;
+    const dataVencimento = this.editForm.get('dataVencimento')?.value;
+
+    return !dataEmprestimo || !dataVencimento || dataVencimento <= dataEmprestimo;
+  }
+
   toggleCollapse(emprestimo: EmprestimoModel) {
     emprestimo.expandido = !emprestimo.expandido;
   }

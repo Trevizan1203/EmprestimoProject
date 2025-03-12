@@ -12,7 +12,7 @@ export class EmprestimoService {
   constructor(private http: HttpClient) { }
 
   createEmprestimo(emprestimoData: EmprestimoModel): Observable<EmprestimoModel> {
-    return this.http.post<any>(`${this.apiUrl}/create`, emprestimoData).pipe(
+    return this.http.post<any>(`${this.apiUrl}`, emprestimoData).pipe(
       catchError(this.handleError)
     )
   }

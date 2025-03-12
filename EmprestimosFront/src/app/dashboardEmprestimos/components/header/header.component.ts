@@ -38,6 +38,13 @@ export class HeaderComponent implements OnInit {
     })
   }
 
+  isDataInvalida(): boolean {
+    const dataEmprestimo = this.emprestimoForm.get('dataEmprestimo')?.value;
+    const dataVencimento = this.emprestimoForm.get('dataVencimento')?.value;
+
+    return dataVencimento <= dataEmprestimo;
+  }
+
   voltarParaCadastro() {
     this.router.navigate(['/dashboard']);
   }
@@ -56,6 +63,8 @@ export class HeaderComponent implements OnInit {
         },
         error: (err) => {console.log(err)}
       })
+    } else {
+      alert("Preencha todos os campos corretamente.")
     }
 
   }

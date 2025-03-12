@@ -23,7 +23,7 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Void> createCliente(@RequestBody ClienteDTO dto) {
         clienteService.createCliente(dto);
         return ResponseEntity.ok().build();
@@ -39,7 +39,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.getAllEmprestimosByCliente(id));
     }
 
-    @GetMapping("/getAllClientes")
+    @GetMapping
     public ResponseEntity<List<Cliente>> getAllClientes() {
         return ResponseEntity.ok(clienteService.getAllClientes());
     }
