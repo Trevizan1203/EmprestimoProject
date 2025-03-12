@@ -37,7 +37,7 @@ export class EmprestimoService {
     } else {
       // leitura da exception do backend
       if (error.status === 404) {
-        errorMessage = 'Cliente não encontrado';
+        errorMessage = 'Emprestimo não encontrado';
       } else if (error.status === 409) {
         errorMessage = error.error || 'Conflito ao processar a solicitação';
       } else {
