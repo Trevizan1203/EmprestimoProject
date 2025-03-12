@@ -1,7 +1,7 @@
 <div class="header d-flex flex-column justify-content-center align-items-center flex-column h-100">
-  <h2 class="text-light py-4">Lista de Clientes</h2>
-  <div class="d-flex justify-content-center w-100 h-100 bg-light py-3">
-    <div class="table-responsive table-container">
+  <h2 class="text-dark py-4">Lista de Clientes</h2>
+  <div class="d-flex justify-content-center w-100 h-100 py-3" style= "background: rgba(0,143,255,0.18);">
+    <div class="table-responsive table-container container d-flex justify-content-center align-items-start">
       <table class="table table-striped">
         <thead class="table-header">
         <tr>
@@ -10,7 +10,7 @@
           <th>CPF</th>
           <th>E-mail</th>
           <th>Telefone</th>
-          <th>Ações</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
@@ -37,21 +37,23 @@
           </td>
 
           <td>
-            <button *ngIf="!cliente.editing" class="btn btn-primary btn-sm me-2" (click)="selecionarCliente(cliente.id)">
-              <i>Selecionar</i>
-            </button>
-            <button *ngIf="!cliente.editing" class="btn btn-warning btn-sm me-2" (click)="editarCliente(cliente)">
-              <i class="bi bi-pencil">Editar</i>
-            </button>
-            <button *ngIf="cliente.editing" class="btn btn-success btn-sm me-2" (click)="salvarEdicao(cliente)">
-              <i class="bi bi-check">Salvar</i>
-            </button>
-            <button *ngIf="cliente.editing" class="btn btn-dark btn-sm" (click)="cancelarEdicao(cliente)">
-              <i class="bi bi-check">Cancelar</i>
-            </button>
-            <button *ngIf="!cliente.editing" class="btn btn-danger btn-sm" (click)="deletarCliente(cliente.id)">
-              <i class="bi bi-trash">Deletar</i>
-            </button>
+            <div class="d-flex justify-content-end">
+              <button *ngIf="!cliente.editing" class="btn btn-primary btn-sm me-2" (click)="selecionarCliente(cliente.id)">
+                <i>Selecionar</i>
+              </button>
+              <button *ngIf="!cliente.editing" class="btn btn-warning btn-sm me-2" (click)="editarCliente(cliente)">
+                <i class="bi bi-pencil">Editar</i>
+              </button>
+              <button *ngIf="cliente.editing" class="btn btn-success btn-sm me-2" (click)="salvarEdicao(cliente)">
+                <i class="bi bi-check">Salvar</i>
+              </button>
+              <button *ngIf="cliente.editing" class="btn btn-dark btn-sm" (click)="cancelarEdicao(cliente)">
+                <i class="bi bi-check">Cancelar</i>
+              </button>
+              <button *ngIf="!cliente.editing" class="btn btn-danger btn-sm" (click)="deletarCliente(cliente.id)">
+                <i class="bi bi-trash">Deletar</i>
+              </button>
+            </div>
           </td>
         </tr>
         </tbody>

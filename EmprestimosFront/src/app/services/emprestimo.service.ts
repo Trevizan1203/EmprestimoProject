@@ -17,8 +17,8 @@ export class EmprestimoService {
     )
   }
 
-  updateEmprestimo(id: number, emprestimoData: EmprestimoModel): Observable<EmprestimoModel> {
-    return this.http.put<EmprestimoModel>(`${this.apiUrl}/${id}`, emprestimoData).pipe(
+  updateEmprestimo(emprestimo: EmprestimoModel): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${emprestimo.id}`, emprestimo).pipe(
       catchError(this.handleError)
     )
   }

@@ -9,4 +9,5 @@ export interface EmprestimoModel {
   valorFinal: number;
   meses: number;
   expandido?: boolean;
+  editing?: boolean;
 }
