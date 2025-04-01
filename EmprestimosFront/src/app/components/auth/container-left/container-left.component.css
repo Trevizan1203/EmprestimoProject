@@ -1,0 +1,59 @@
+.container-1 {
+  width: 50vw;
+  display: flex;
+  transition: background-color 0.5s ease;
+}
+
+.container-1.register-active {
+  background-color: rgba(211, 211, 211, 0.16);
+}
+
+.container-1.login-active {
+  background-color: rgba(0, 123, 255, 0.50);
+}
+
+input {
+  background-color: lightgray;
+  border: none;
+  height: 50px;
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 10px;
+  font-size: 16px;
+}
+
+i {
+  font-size: 2rem;
+}
+
+.form-container {
+  width: 80%;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.buttons button {
+  border: 1px solid lightgray;
+  background-color: white;
+  padding: 10px;
+  border-radius: 25px;
+  margin: 0px 20px;
+}
+
+.buttons button:hover {
+  background-color: black;
+  color: white;
+  border: 1px solid white;
+}
+
+.input-container i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: black;
+}

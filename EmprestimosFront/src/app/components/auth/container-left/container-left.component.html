@@ -1,0 +1,40 @@
+<div class="h-100 flex-column justify-content-center align-items-center container-1" [ngClass]="{ 'login-active': !isRegister, 'register-active': isRegister }">
+  <ng-container *ngIf="isRegister">
+    <!-- Formulário de Registro -->
+    <h2 class="my-md-4">Criar conta</h2>
+    <!--Botoes do OAuth-->
+    <div class="w-50 justify-content-center mb-md-4 d-flex align-items-center buttons">
+      <button><i class="fab fa-facebook"></i></button>
+      <button><i class="fab fa-google"></i></button>
+      <button><i class="fab fa-apple"></i></button>
+    </div>
+
+    <span style="color: gray; margin-bottom: 5px">Ou use seu email para registro</span>
+
+    <form class="form-container">
+      <div class="input-container">
+        <input class="my-md-1" type="text" placeholder="Nome de Usuário" required>
+        <i class="fa fa-user"></i>
+      </div>
+      <div class="input-container">
+        <input class="my-md-1" type="email" placeholder="Email" required>
+        <i class="fa fa-envelope"></i>
+      </div>
+      <div class="input-container">
+        <input class="my-md-1" type="password" placeholder="Senha" required>
+        <i class="fa fa-key"></i>
+      </div>
+      <!--Div de organizacao para o botao-->
+      <div class="d-flex align-items-center justify-content-center">
+        <button class="btn btn-primary p-2 mt-md-3 rounded" style="width: 50%" type="submit">Registrar</button>
+      </div>
+    </form>
+  </ng-container>
+  <ng-container *ngIf="!isRegister">
+
+      <h1 class="text-white">Ainda não possui uma conta?</h1>
+      <span class="text-white">Registre-se no botão abaixo</span>
+      <button class="w-50 btn btn-outline-light mt-md-3" (click)="alternaLogin()">Login</button>
+
+  </ng-container>
+</div>

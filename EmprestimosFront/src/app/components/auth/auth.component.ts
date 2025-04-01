@@ -1,18 +1,25 @@
 import { Component } from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {ContainerLeftComponent} from './container-left/container-left.component';
+import {ContainerRightComponent} from './container-right/container-right.component';
 
 @Component({
   selector: 'app-auth',
-  imports: [],
+  imports: [
+    CommonModule,
+    ContainerLeftComponent,
+    ContainerRightComponent
+  ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
 export class AuthComponent {
-  isRegiser: boolean = false;
+  isRegister: boolean = true;
 
   constructor() {
   }
 
   alternaLogin() {
-    this.isRegiser = !this.isRegiser;
+    this.isRegister = !this.isRegister;
   }
 }
