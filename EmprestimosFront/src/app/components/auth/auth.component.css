@@ -1,0 +1,48 @@
+input {
+  background-color: lightgray;
+  border: none!important;
+  height: 40px;
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 10px;
+  font-size: 16px;
+}
+
+i {
+  font-size: 2rem;
+}
+
+.form-container {
+  width: 80%;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.buttons button {
+  border: 1px solid lightgray;
+  background-color: white;
+  padding: 10px;
+  border-radius: 25px;
+  margin: 0px 20px;
+}
+
+.input-container i {
+  position: absolute;
+  left: 12px;  /* Posiciona o ícone à esquerda */
+  top: 50%;
+  transform: translateY(-50%);  /* Centraliza o ícone verticalmente */
+  font-size: 18px;
+  color: black;
+}
+
+.auth-container {
+  background-color: rgba(211, 211, 211, 0.16);
+}
+
+.login-indicator {
+  background-color: rgba(0, 123, 255, 0.50);
+  color: white;
+}

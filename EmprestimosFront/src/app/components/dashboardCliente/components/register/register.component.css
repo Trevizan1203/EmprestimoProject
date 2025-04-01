@@ -1,6 +1,11 @@
+.register-container {
+  max-height: 100%;
+}
+
 .form-container {
   width: 100%;
-  max-width: 400px;
+  max-height: 100%;
+  max-width: 300px;
   background: white;
   padding: 2rem;
   border-radius: 5px;

@@ -3,7 +3,7 @@ import {DashboardComponent} from './components/dashboardCliente/page/dashboard/d
 import {NgModule} from '@angular/core';
 import {
   DashboardEmprestimoComponent
-} from './dashboardEmprestimos/page/dashboard-emprestimo/dashboard-emprestimo.component';
+} from './components/dashboardEmprestimos/page/dashboard-emprestimo/dashboard-emprestimo.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
