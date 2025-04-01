@@ -52,7 +52,7 @@ public class ClienteService {
         clientesRepository.save(novoCliente);
     }
 
-    public Cliente getCliente(long id) {
+    public Cliente getCliente(Long id) {
         return clientesRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 
