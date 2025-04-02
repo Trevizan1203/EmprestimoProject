@@ -40,8 +40,8 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> getAllClientes() {
-        return ResponseEntity.ok(clienteService.getAllClientes());
+    public ResponseEntity<List<Cliente>> getAllClientes(JwtAuthenticationToken token) {
+        return ResponseEntity.ok(clienteService.getAllClientesByUser(token));
     }
 
     @PutMapping("/{id}")

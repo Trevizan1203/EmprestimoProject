@@ -118,8 +118,8 @@ public class ClienteService {
         return clienteFromDB.get().getEmprestimos();
     }
 
-    public List<Cliente> getAllClientes() {
-        return clientesRepository.findAll();
+    public List<Cliente> getAllClientesByUser(JwtAuthenticationToken token) {
+        return clientesRepository.findAllByUserId(Long.valueOf(token.getName()));
     }
 
 }
