@@ -1,6 +1,8 @@
 package Aplicacao.CotacaoEmprestimos.entities;
 
+import Aplicacao.CotacaoEmprestimos.api.DTOs.LoginRequestDTO;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name = "usuarios")
@@ -50,5 +52,9 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isLoginCorrect(LoginRequestDTO loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
     }
 }
