@@ -18,19 +18,36 @@
 
     <span style="color: gray; margin-bottom: 5px">Ou use seu email para logar</span>
 
-    <form class="form-container">
+    <form [formGroup]="loginForm" class="form-container" (ngSubmit)="onSubmit()">
       <div class="input-container">
-        <input class="my-md-1" type="email" placeholder="Email" required>
+        <input class="mt-md-1"
+               formControlName="email"
+               type="email"
+               placeholder="Email"
+               required>
         <i class="fa fa-envelope"></i>
       </div>
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-danger">
+        <small>Informe um email válido.</small>
+      </div>
+
       <div class="input-container">
-        <input class="my-md-1" type="password" placeholder="Senha" required>
+        <input class="my-md-1"
+               formControlName="password"
+               type="password"
+               placeholder="Senha"
+               required>
         <i class="fa fa-key"></i>
       </div>
-      <!--Div de organizacao para o botao-->
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-danger">
+        <small>A senha é obrigatória e deve ter pelo menos 6 caracteres.</small>
+      </div>
+
+      <!-- Div de organização para o botão -->
       <div class="d-flex align-items-center justify-content-center">
-        <button class="btn btn-primary p-2 mt-md-3 rounded" style="width: 50%" type="submit">Login</button>
+        <button class="btn btn-primary p-2 mt-md-3 rounded" style="width: 50%" type="submit" [disabled]="loginForm.invalid">Login</button>
       </div>
     </form>
+
   </ng-container>
 </div>
