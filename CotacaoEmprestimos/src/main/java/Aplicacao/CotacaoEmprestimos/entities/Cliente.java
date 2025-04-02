@@ -33,6 +33,14 @@ public class Cliente {
     @JsonManagedReference
     private List<Emprestimo> emprestimos = new ArrayList<>();
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }

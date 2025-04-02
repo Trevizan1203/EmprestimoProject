@@ -4,8 +4,10 @@ import Aplicacao.CotacaoEmprestimos.api.DTOs.ClienteDTO;
 import Aplicacao.CotacaoEmprestimos.entities.Cliente;
 import Aplicacao.CotacaoEmprestimos.entities.Emprestimo;
 import Aplicacao.CotacaoEmprestimos.repository.ClientesRepository;
+import Aplicacao.CotacaoEmprestimos.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,9 +18,11 @@ import java.util.List;
 public class ClienteService {
 
     private final ClientesRepository clientesRepository;
+    private final UserRepository userRepository;
 
-    public ClienteService(ClientesRepository clientesRepository) {
+    public ClienteService(ClientesRepository clientesRepository, UserRepository userRepository) {
         this.clientesRepository = clientesRepository;
+        this.userRepository = userRepository;
     }
 
     public void verificarDadosUnicos(ClienteDTO dto, Long idCliente) {
@@ -40,10 +44,16 @@ public class ClienteService {
     }
 
     @Transactional
-    public void createCliente(@RequestBody ClienteDTO dto) {
+    public void createCliente(@RequestBody ClienteDTO dto, JwtAuthenticationToken token) {
+        var userFromDB = userRepository.findById(Long.valueOf(token.getName()));
+        if(userFromDB.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado.");
+        }
+
         verificarDadosUnicos(dto, null);
 
         Cliente novoCliente = new Cliente();
+        novoCliente.setUser(userFromDB.get());
         novoCliente.setEmail(dto.email());
         novoCliente.setNome(dto.nome());
         novoCliente.setCpf(dto.cpf());

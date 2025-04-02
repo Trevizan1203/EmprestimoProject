@@ -7,6 +7,7 @@ import Aplicacao.CotacaoEmprestimos.services.ClienteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createCliente(@RequestBody ClienteDTO dto) {
-        clienteService.createCliente(dto);
+    public ResponseEntity<Void> createCliente(@RequestBody ClienteDTO dto, JwtAuthenticationToken token) {
+        clienteService.createCliente(dto, token);
         return ResponseEntity.ok().build();
     }
 
