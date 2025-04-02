@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ClienteService} from '../../../../services/cliente.service';
 import {CommonModule} from '@angular/common';
@@ -11,6 +11,12 @@ import {CommonModule} from '@angular/common';
 })
 export class RegisterComponent {
   clientesForm: FormGroup;
+  @Output()
+  release: EventEmitter<void> = new EventEmitter();
+
+  freeToolbar() {
+    this.release.emit()
+  }
 
   constructor(private formBuilder: FormBuilder, private clienteService: ClienteService) {
     this.clientesForm = this.formBuilder.group({
