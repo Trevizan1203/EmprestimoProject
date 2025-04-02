@@ -13,7 +13,6 @@ import java.util.List;
 @Tag(name = "Emprestimo")
 @RestController
 @RequestMapping("/emprestimos")
-@CrossOrigin(origins = "http://localhost:4200")
 public class EmprestimoController {
 
     private final EmprestimoService emprestimoService;

@@ -14,7 +14,6 @@ import java.util.List;
 @Tag(name = "Clientes")
 @RestController
 @RequestMapping("/clientes")
-@CrossOrigin(origins = "http://localhost:4200")
 public class ClienteController {
 
     private ClienteService clienteService;
