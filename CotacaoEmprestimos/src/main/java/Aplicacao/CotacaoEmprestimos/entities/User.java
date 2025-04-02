@@ -1,8 +1,12 @@
 package Aplicacao.CotacaoEmprestimos.entities;
 
 import Aplicacao.CotacaoEmprestimos.api.DTOs.LoginRequestDTO;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -21,6 +25,10 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Cliente> clientes = new ArrayList<>();
 
     public Long getId() {
         return id;

@@ -1,5 +1,6 @@
 package Aplicacao.CotacaoEmprestimos.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -22,6 +23,11 @@ public class Cliente {
     private String cpf;
     @Column(unique = true, nullable = false, name = "telefone")
     private String telefone;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id")
+    @JsonBackReference
+    private User user;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
