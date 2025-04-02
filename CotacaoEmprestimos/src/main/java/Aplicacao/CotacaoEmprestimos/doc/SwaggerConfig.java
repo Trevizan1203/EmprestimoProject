@@ -1,5 +1,8 @@
 package Aplicacao.CotacaoEmprestimos.doc;
 
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.tags.Tag;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -28,6 +31,12 @@ public class SwaggerConfig {
                                 new Tag().name("Emprestimo").description("Requisicoes de Emprestimos"),
                                 new Tag().name("Cambio").description("Requisicoes de Cambio")
                         )
-                );
+                )
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .components(new Components().addSecuritySchemes("bearerAuth",
+                        new SecurityScheme()
+                                .type(SecurityScheme.Type.HTTP)
+                                .scheme("bearer")
+                                .bearerFormat("JWT")));
     }
 }
