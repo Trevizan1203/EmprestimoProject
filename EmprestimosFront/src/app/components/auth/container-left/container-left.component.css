@@ -1,5 +1,4 @@
 .container-1 {
-  width: 50vw;
   display: flex;
   transition: background-color 0.5s ease;
 }
