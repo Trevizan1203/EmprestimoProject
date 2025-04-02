@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {UserService} from '../../../services/user.service';
 import {Token} from '@angular/compiler';
 import {TokenModel} from '../../../models/token-model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-container-right',
@@ -22,7 +23,7 @@ export class ContainerRightComponent {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       id: [null],
       username: [''],
@@ -39,6 +40,7 @@ export class ContainerRightComponent {
           let res: TokenModel
           res = JSON.parse(JSON.stringify(response));
           sessionStorage.setItem('token', res.acessToken)
+          this.router.navigateByUrl('/dashboard');
         },
         error: err => {
           console.log(err)
