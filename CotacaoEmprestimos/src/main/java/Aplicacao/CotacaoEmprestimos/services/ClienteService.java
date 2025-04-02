@@ -43,6 +43,19 @@ public class ClienteService {
         }
     }
 
+    public void verificaUsuarioCliente(Long clientId, JwtAuthenticationToken token) {
+        var userFromDB = userRepository.findById(Long.valueOf(token.getName()));
+        if(userFromDB.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado.");
+
+        var clienteFromDB = clientesRepository.findById(clientId);
+        if (clienteFromDB.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
+
+        if(!clienteFromDB.get().getUser().equals(userFromDB.get()))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Usuário não tem acesso à esse cliente.");
+    }
+
     @Transactional
     public void createCliente(@RequestBody ClienteDTO dto, JwtAuthenticationToken token) {
         var userFromDB = userRepository.findById(Long.valueOf(token.getName()));
@@ -62,12 +75,15 @@ public class ClienteService {
         clientesRepository.save(novoCliente);
     }
 
-    public Cliente getCliente(Long id) {
+    public Cliente getCliente(Long id, JwtAuthenticationToken token) {
+        verificaUsuarioCliente(id, token);
         return clientesRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 
     @Transactional
-    public void updateCliente(Long id, @RequestBody ClienteDTO dto) {
+    public void updateCliente(Long id, @RequestBody ClienteDTO dto, JwtAuthenticationToken token) {
+
+        verificaUsuarioCliente(id, token);
 
         var clienteFromDB = clientesRepository.findById(id);
         if (clienteFromDB.isEmpty())
@@ -88,12 +104,14 @@ public class ClienteService {
     }
 
     @Transactional
-    public void deleteCliente(long id) {
+    public void deleteCliente(Long id, JwtAuthenticationToken token) {
+        verificaUsuarioCliente(id, token);
         Cliente cliente = clientesRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
         clientesRepository.deleteById(cliente.getId());
     }
 
-    public List<Emprestimo> getAllEmprestimosByCliente(long id) {
+    public List<Emprestimo> getAllEmprestimosByCliente(Long id, JwtAuthenticationToken token) {
+        verificaUsuarioCliente(id, token);
         var clienteFromDB = clientesRepository.findById(id);
         if(clienteFromDB.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario nao encontrado");

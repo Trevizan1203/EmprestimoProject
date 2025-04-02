@@ -30,13 +30,13 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getClienteById(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(clienteService.getCliente(id));
+    public ResponseEntity<Cliente> getClienteById(@PathVariable("id") Long id, JwtAuthenticationToken token) {
+        return ResponseEntity.ok(clienteService.getCliente(id, token));
     }
 
     @GetMapping("/getEmprestimos/{id}")
-    public ResponseEntity<List<Emprestimo>> getEmprestimos(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(clienteService.getAllEmprestimosByCliente(id));
+    public ResponseEntity<List<Emprestimo>> getEmprestimos(@PathVariable("id") Long id, JwtAuthenticationToken token) {
+        return ResponseEntity.ok(clienteService.getAllEmprestimosByCliente(id, token));
     }
 
     @GetMapping
@@ -45,14 +45,14 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateCliente(@PathVariable("id") Long id, @RequestBody ClienteDTO dto) {
-        clienteService.updateCliente(id, dto);
+    public ResponseEntity<Void> updateCliente(@PathVariable("id") Long id, @RequestBody ClienteDTO dto, JwtAuthenticationToken token) {
+        clienteService.updateCliente(id, dto, token);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCliente(@PathVariable("id") Long id) {
-        clienteService.deleteCliente(id);
+    public ResponseEntity<Void> deleteCliente(@PathVariable("id") Long id, JwtAuthenticationToken token) {
+        clienteService.deleteCliente(id, token);
         return ResponseEntity.noContent().build();
     }
 }
