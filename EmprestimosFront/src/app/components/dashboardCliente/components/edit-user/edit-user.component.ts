@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {UserService} from '../../../../services/user.service';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {UserModel} from '../../../../models/user-model';
 
@@ -16,14 +16,9 @@ import {UserModel} from '../../../../models/user-model';
 })
 export class EditUserComponent implements OnInit {
   usuarioForm: FormGroup;
-  usuario: UserModel = {
-    id: 0,
-    username: '',
-    password: '',
-    email: ''
-  }
   @Output()
   release: EventEmitter<void> = new EventEmitter();
+  changePassword: boolean = false;
 
   freeToolbar() {
     this.release.emit()
@@ -31,17 +26,17 @@ export class EditUserComponent implements OnInit {
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) {
     this.usuarioForm = this.formBuilder.group({
-      id: [null],
-      username: [''],
-      email: [''],
-      password: ['']
-    })
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      oldPassword: [''],
+      newPassword: ['', Validators.minLength(6)],
+      confirmedPassword: ['', Validators.minLength(6)]
+    });
   }
 
   ngOnInit() {
     this.userService.getUser().subscribe({
       next: (data: UserModel) => {
-        this.usuario = data;
         this.usuarioForm.patchValue(data);
       },
       error: error => {console.log(error)},
@@ -50,6 +45,13 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.userService.update(this.usuarioForm.value).subscribe({
+      next: () => {
+        alert("Usuário alterado com sucesso.")
+        window.location.reload();
+      },
+      error: error =>  alert(error)
+      }
+    )
   }
 }

@@ -1,20 +1,40 @@
 <div class="edit-container d-flex flex-column justify-content-start align-items-center vh-100">
   <h3 class="my-md-3 text-white">Edição de Usuário</h3>
-  <div class="form-container" [formGroup]="usuarioForm">
-    <form>
+  <div class="form-container">
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
       <div class="mb-md-1">
         <label for="username" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="username" [(ngModel)]="usuario.username" name="username" required>
+        <input type="text" class="form-control" id="username" name="username" formControlName="username" required>
       </div>
 
       <div class="mb-md-1">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" [(ngModel)]="usuario.email" name="email" required>
+        <input type="email" class="form-control" id="email" name="email" formControlName="email" required>
       </div>
 
-      <div class="mb-md-1">
-        <label for="password" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+      <div class="mt-md-2">
+        <label class="form-label d-flex flex-row align-items-center justify-content-start">
+          <input type="checkbox" [(ngModel)]="changePassword" [ngModelOptions]="{standalone: true}" name="changePassword" class="toggle-switch">
+          <span class="mx-md-2">Alterar senha?</span>
+        </label>
+      </div>
+
+      <div *ngIf="changePassword">
+
+        <div class="mb-md-1">
+          <label for="currentPassword" class="form-label">Senha Atual</label>
+          <input type="password" class="form-control" id="currentPassword" formControlName="oldPassword" required>
+        </div>
+
+        <div class="mb-md-1">
+          <label for="newPassword" class="form-label">Nova Senha</label>
+          <input type="password" class="form-control" id="newPassword" formControlName="newPassword" required>
+        </div>
+
+        <div class="mb-md-1">
+          <label for="confirmNewPassword" class="form-label">Confirmar Nova Senha</label>
+          <input type="password" class="form-control" id="confirmNewPassword" formControlName="confirmedPassword" required>
+        </div>
       </div>
 
       <div class="d-flex flex-row justify-content-between mx-md-3 mt-md-3">
@@ -25,7 +45,7 @@
     </form>
   </div>
   <div class="h-100 d-flex align-items-end">
-    <button class="btn btn-danger mb-md-3">
+    <button class="btn btn-outline-danger mb-md-3">
       Cancelar Conta
     </button>
   </div>
