@@ -1,7 +1,7 @@
 <div class="edit-container d-flex flex-column justify-content-start align-items-center vh-100">
   <h3 class="my-md-3 text-white">Edição de Usuário</h3>
   <div class="form-container">
-    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="usuarioForm">
       <div class="mb-md-1">
         <label for="username" class="form-label">Nome</label>
         <input type="text" class="form-control" id="username" name="username" formControlName="username" required>
@@ -38,7 +38,7 @@
       </div>
 
       <div class="d-flex flex-row justify-content-between mx-md-3 mt-md-3">
-        <button class="btn btn-success">Confirmar</button>
+        <button class="btn btn-success" (click)="onSubmit()">Confirmar</button>
         <button class="btn btn-outline-secondary" (click)="freeToolbar()">Voltar</button>
       </div>
 
