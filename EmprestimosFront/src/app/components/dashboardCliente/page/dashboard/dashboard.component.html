@@ -1,5 +1,6 @@
 <div class="d-flex w-100 vh-100">
   <app-tools *ngIf="toolbar" (cliente)= "creating()" (user)= "editingUser()"></app-tools>
   <app-register (release)="alternateToolbar()" *ngIf="client" class="w-25"></app-register>
+  <app-edit-user (release)="alternateToolbar()" *ngIf="user" class="w-25"></app-edit-user>
   <app-select-client [ngClass]="client ? 'w-75' : 'w-100'"></app-select-client>
 </div>

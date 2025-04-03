@@ -20,6 +20,10 @@ export class ToolsComponent {
     this.cliente.emit();
   }
 
+  areaUser() {
+    this.user.emit();
+  }
+
   logout() {
     this.router.navigateByUrl('');
   }

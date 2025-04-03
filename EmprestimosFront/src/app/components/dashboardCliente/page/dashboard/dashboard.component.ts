@@ -3,6 +3,7 @@ import {RegisterComponent} from '../../components/register/register.component';
 import {SelectClientComponent} from '../../components/select-client/select-client.component';
 import {ToolsComponent} from '../../components/tools/tools.component';
 import {NgClass, NgIf} from '@angular/common';
+import {EditUserComponent} from '../../components/edit-user/edit-user.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ import {NgClass, NgIf} from '@angular/common';
     SelectClientComponent,
     ToolsComponent,
     NgIf,
-    NgClass
+    NgClass,
+    EditUserComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
