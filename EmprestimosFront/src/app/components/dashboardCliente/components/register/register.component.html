@@ -1,5 +1,5 @@
-<div class="register-container bg-primary d-flex flex-column justify-content-center align-items-center vh-100">
-  <h3 class="text-center my-md-2 text-light">Cadastro de Cliente</h3>
+<div class="register-container d-flex flex-column justify-content-start align-items-center vh-100">
+  <h3 class="text-center my-md-3 text-light">Cadastro de Cliente</h3>
   <div class="form-container p-3 mt-md-1">
     <form [formGroup]="clientesForm" (ngSubmit)="onSubmit()">
       <div class="mb-md-1">
@@ -40,7 +40,7 @@
 
       <div class="d-flex flex-column justify-content-between align-items-center">
         <button type="submit" class="btn btn-primary custom-btn my-md-1">Cadastrar</button>
-        <button class="btn btn-danger custom-btn mt-md-1" (click)="freeToolbar()">Sair</button>
+        <button class="btn btn-outline-secondary custom-btn mt-md-1" (click)="freeToolbar()">Voltar</button>
       </div>
     </form>
   </div>
