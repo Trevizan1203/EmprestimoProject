@@ -14,7 +14,7 @@ import {
 export const TokenInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
   const allowedRoutes = ['/users', '/users/login'];
 
-  if (!allowedRoutes.some(route => req.url.includes(route))) {
+  if (!(allowedRoutes.some(route => req.url.includes(route))  && req.method === 'POST')) {
     console.log('teste')
     const clonedReq = req.clone({
       setHeaders: {
