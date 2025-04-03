@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UserService} from '../../../services/API/user.service';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-container-left',
@@ -20,7 +21,7 @@ export class ContainerLeftComponent {
 
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService) {
+  constructor(private notificationService: NotificationService, private formBuilder: FormBuilder, private userService: UserService) {
     this.registerForm = this.formBuilder.group({
       id: [null],
       username: ['', [Validators.required, Validators.minLength(6)]],
@@ -34,12 +35,12 @@ export class ContainerLeftComponent {
     if(this.registerForm.valid) {
       this.userService.createUser(this.registerForm.value).subscribe({
         next: () => {
-          alert("Usuario cadastrado com sucesso!")
+          this.notificationService.showToast("Usuario cadastrado com sucesso.", 'success')
           this.alternaLogin()
           this.registerForm.reset()
         },
         error: (err) => {
-          alert(err)
+          this.notificationService.showToast(err, 'warning')
         }
       })
     }

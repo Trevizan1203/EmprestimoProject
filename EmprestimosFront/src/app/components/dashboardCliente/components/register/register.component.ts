@@ -2,6 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ClienteService} from '../../../../services/API/cliente.service';
 import {CommonModule} from '@angular/common';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ export class RegisterComponent {
     this.release.emit()
   }
 
-  constructor(private formBuilder: FormBuilder, private clienteService: ClienteService) {
+  constructor(private notificationService: NotificationService, private formBuilder: FormBuilder, private clienteService: ClienteService) {
     this.clientesForm = this.formBuilder.group({
       id: [null],
       nome: ['', [Validators.required]],
@@ -32,10 +33,9 @@ export class RegisterComponent {
     if(this.clientesForm.valid) {
       this.clienteService.registerCliente(this.clientesForm.value).subscribe({
         next: () => {
-          alert('Cliente criado com sucesso!');
-          window.location.reload();
+          this.notificationService.showToast("Cliente criado com sucesso", 'success', true)
         },
-        error: (err) => alert(err),
+        error: (err) => this.notificationService.showToast(err, 'warning'),
       });
     }
   }

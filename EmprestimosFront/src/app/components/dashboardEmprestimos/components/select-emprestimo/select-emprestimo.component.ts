@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ClienteService} from '../../../../services/API/cliente.service';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-select-emprestimo',
@@ -17,7 +18,7 @@ export class SelectEmprestimoComponent implements OnInit {
   emprestimos: EmprestimoModel[] = [];
   editForm: FormGroup;
 
-  constructor(private emprestimoService: EmprestimoService, private route: ActivatedRoute, private clienteService: ClienteService, private formBuilder: FormBuilder) {
+  constructor(private notificationService: NotificationService, private emprestimoService: EmprestimoService, private route: ActivatedRoute, private clienteService: ClienteService, private formBuilder: FormBuilder) {
     this.editForm = this.formBuilder.group({
       moeda: ['', Validators.required],
       valorObtido: ['', [Validators.required, Validators.min(1)]],
@@ -48,10 +49,9 @@ export class SelectEmprestimoComponent implements OnInit {
     if(confirm("Tem certeza que deseja cancelar esse emprestimo?")) {
       this.emprestimoService.deleteEmprestimo(id).subscribe({
         next: () => {
-          alert("Emprestimo cancelado com sucesso!");
-          window.location.reload();
+          this.notificationService.showToast("Emprestimo cancelado com sucesso.", 'success', true)
         },
-        error: (err) => alert(err.message),
+        error: (err) => this.notificationService.showToast(err, 'warning')
       })
     }
   }
@@ -70,18 +70,17 @@ export class SelectEmprestimoComponent implements OnInit {
 
   salvarEdicao(emprestimo: EmprestimoModel) {
     if(this.editForm.invalid) {
-      alert("Preencha todos os campos corretamente.");
+      this.notificationService.showToast("Preencha todos os campos corretamente", 'warning')
     } else {
       Object.assign(emprestimo, this.editForm.value);
       console.log(emprestimo);
       this.emprestimoService.updateEmprestimo(emprestimo).subscribe({
         next: () => {
-          alert("Emprestimo atualizado com sucesso!");
+          this.notificationService.showToast("Emprestimo atualizado com sucesso.", 'success', true)
           emprestimo.editing = !emprestimo.editing;
           this.editForm.reset();
-          window.location.reload();
         },
-        error: (err) => alert(err.message)
+        error: (err) => this.notificationService.showToast(err, 'warning')
       });
     }
 

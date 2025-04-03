@@ -6,6 +6,7 @@ import {EmprestimoModel} from '../../../../models/emprestimo-model';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {EmprestimoService} from '../../../../services/API/emprestimo.service';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,7 @@ export class HeaderComponent implements OnInit {
   mostrarForms: boolean = false;
   emprestimoForm: FormGroup;
 
-  constructor(private router: Router, private clienteService: ClienteService, private route: ActivatedRoute, private formBuilder: FormBuilder, private emprestimoService: EmprestimoService) {
+  constructor(private notificationService: NotificationService, private router: Router, private clienteService: ClienteService, private route: ActivatedRoute, private formBuilder: FormBuilder, private emprestimoService: EmprestimoService) {
     this.clienteId = +this.route.snapshot.paramMap.get('id')!;
     this.emprestimoForm = formBuilder.group({
       id: [null],
@@ -57,14 +58,12 @@ export class HeaderComponent implements OnInit {
     if(this.emprestimoForm.valid) {
       this.emprestimoService.createEmprestimo(this.emprestimoForm.value).subscribe({
         next: () => {
-          alert('Emprestimo feito!')
-          console.log(this.emprestimoForm.value);
-          window.location.reload();
+          this.notificationService.showToast("Emprestimo feito.", 'success', true)
         },
-        error: (err) => {console.log(err)}
+        error: (err) => this.notificationService.showToast(err, 'warning')
       })
     } else {
-      alert("Preencha todos os campos corretamente.")
+      this.notificationService.showToast("Preencha todos os campos corretamente", 'warning')
     }
 
   }

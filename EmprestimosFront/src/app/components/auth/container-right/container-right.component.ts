@@ -2,9 +2,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {UserService} from '../../../services/API/user.service';
-import {Token} from '@angular/compiler';
 import {TokenModel} from '../../../models/token-model';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../../services/notification.service';
 
 @Component({
   selector: 'app-container-right',
@@ -23,7 +23,7 @@ export class ContainerRightComponent {
 
   loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(private notificationService: NotificationService, private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.loginForm = this.formBuilder.group({
       id: [null],
       username: [''],
@@ -43,8 +43,7 @@ export class ContainerRightComponent {
           this.router.navigateByUrl('/dashboard');
         },
         error: err => {
-          console.log(err)
-          alert('Credenciais Inválidas.')
+          this.notificationService.showToast(err, 'warning')
         }
       })
     }

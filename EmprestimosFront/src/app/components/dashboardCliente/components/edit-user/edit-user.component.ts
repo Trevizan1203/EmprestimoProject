@@ -3,6 +3,7 @@ import {UserService} from '../../../../services/API/user.service';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {UserModel} from '../../../../models/user-model';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -24,7 +25,7 @@ export class EditUserComponent implements OnInit {
     this.release.emit()
   }
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private notificationService: NotificationService, private userService: UserService, private formBuilder: FormBuilder) {
     this.usuarioForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -47,10 +48,9 @@ export class EditUserComponent implements OnInit {
   onSubmit() {
     this.userService.update(this.usuarioForm.value).subscribe({
       next: () => {
-        alert("Usuário alterado com sucesso.")
-        window.location.reload();
+        this.notificationService.showToast("Usuario alterado com sucesso.", 'success', true)
       },
-      error: error =>  alert(error)
+      error: error =>  this.notificationService.showToast(error, 'warning')
       }
     )
   }

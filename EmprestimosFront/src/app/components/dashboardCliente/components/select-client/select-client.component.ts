@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {ClienteModel} from '../../../../models/cliente-model';
 import {FormBuilder, FormGroup, FormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../../../services/notification.service';
 
 @Component({
   selector: 'app-select-client',
@@ -18,7 +19,7 @@ export class SelectClientComponent implements OnInit {
   clienteEditando: ClienteModel | null = null;
   editForm: FormGroup;
 
-  constructor(private clienteService: ClienteService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private notificationService: NotificationService, private clienteService: ClienteService, private formBuilder: FormBuilder, private router: Router) {
     this.editForm = this.formBuilder.group({
       nome: ['', [Validators.required]],
       cpf: ['', [Validators.required, Validators.pattern('[0-9]{11}')]],
@@ -33,7 +34,7 @@ export class SelectClientComponent implements OnInit {
         this.clientes = data;
         this.clientesFiltrados = data;
       },
-      error: (err) => alert(err.message),
+      error: (err) => this.notificationService.showToast(err, 'warning')
     })
   }
 
@@ -41,10 +42,9 @@ export class SelectClientComponent implements OnInit {
     if (confirm("Tem certeza que deseja excluir este cliente?")) {
       this.clienteService.deleteClienteById(id).subscribe({
         next: () => {
-          alert("Cliente deletado com sucesso!");
-          window.location.reload();
+          this.notificationService.showToast("Cliente deletado.", 'success', true)
         },
-          error: (err) => alert(err.message),
+          error: (err) => this.notificationService.showToast(err, 'warning')
       });
     }
   }
@@ -57,19 +57,17 @@ export class SelectClientComponent implements OnInit {
   salvarEdicao(cliente: ClienteModel) {
     this.editForm.patchValue(cliente);
     if (this.editForm.invalid) {
-      alert("Por favor, preencha os dados corretamente.");
+      this.notificationService.showToast("Por favor preencha todos os campos corretamente.", 'warning')
     } else {
       cliente.editing = false;
       this.clienteService.editClienteById(cliente).subscribe({
         next: () => {
-          alert("Cliente atualizado com sucesso!");
+          this.notificationService.showToast("Cliente atualizado com sucesso!", 'success', true)
           this.clienteEditando = null;
           this.editForm.reset();
-          window.location.reload();
         },
         error: (err) => {
-          alert(err.message);
-          window.location.reload();
+          this.notificationService.showToast(err, 'warning')
         }
       });
     }
