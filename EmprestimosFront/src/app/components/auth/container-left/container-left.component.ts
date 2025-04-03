@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../../services/API/user.service';
 
 @Component({
   selector: 'app-container-left',

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {UserService} from '../../../../services/user.service';
+import {UserService} from '../../../../services/API/user.service';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {UserModel} from '../../../../models/user-model';

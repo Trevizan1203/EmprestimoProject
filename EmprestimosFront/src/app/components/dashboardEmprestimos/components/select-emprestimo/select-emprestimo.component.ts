@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {EmprestimoModel} from '../../../../models/emprestimo-model';
-import {EmprestimoService} from '../../../../services/emprestimo.service';
+import {EmprestimoService} from '../../../../services/API/emprestimo.service';
 import {ActivatedRoute} from '@angular/router';
-import {ClienteService} from '../../../../services/cliente.service';
+import {ClienteService} from '../../../../services/API/cliente.service';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 

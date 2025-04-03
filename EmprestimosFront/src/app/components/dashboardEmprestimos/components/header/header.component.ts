@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClienteModel} from '../../../../models/cliente-model';
-import {ClienteService} from '../../../../services/cliente.service';
+import {ClienteService} from '../../../../services/API/cliente.service';
 import {EmprestimoModel} from '../../../../models/emprestimo-model';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {EmprestimoService} from '../../../../services/emprestimo.service';
+import {EmprestimoService} from '../../../../services/API/emprestimo.service';
 
 @Component({
   selector: 'app-header',

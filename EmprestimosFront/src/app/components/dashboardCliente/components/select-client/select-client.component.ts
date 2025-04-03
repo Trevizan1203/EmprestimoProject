@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ClienteService} from '../../../../services/cliente.service';
+import {ClienteService} from '../../../../services/API/cliente.service';
 import {CommonModule} from '@angular/common';
 import {ClienteModel} from '../../../../models/cliente-model';
 import {FormBuilder, FormGroup, FormsModule, Validators} from '@angular/forms';

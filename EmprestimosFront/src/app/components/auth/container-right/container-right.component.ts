@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
+import {UserService} from '../../../services/API/user.service';
 import {Token} from '@angular/compiler';
 import {TokenModel} from '../../../models/token-model';
 import {Router} from '@angular/router';

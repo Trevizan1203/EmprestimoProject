@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {ClienteService} from '../../../../services/cliente.service';
+import {ClienteService} from '../../../../services/API/cliente.service';
 import {CommonModule} from '@angular/common';
 
 @Component({
