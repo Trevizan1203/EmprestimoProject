@@ -23,6 +23,12 @@ export class UserService {
     )
   }
 
+  update(userData:any): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}`, userData).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   getUser(): Observable<UserModel> {
     return this.http.get<UserModel>(`${this.apiUrl}`).pipe(
       catchError(this.handleError)
