@@ -49,21 +49,7 @@ export class ClienteService {
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = "Erro desconhecido";
-
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Erro: ${error.error.message}`;
-    } else {
-      // leitura da exception do backend
-      if (error.status === 404) {
-        errorMessage = 'Cliente não encontrado';
-      } else if (error.status === 409) {
-        errorMessage = error.error || 'Conflito ao processar a solicitação';
-      } else {
-        errorMessage = `Código de erro: ${error.status}, mensagem: ${error.message}`;
-      }
-    }
-
+    let errorMessage = `${error.status}: ${error.error}`;
     return throwError(() => new Error(errorMessage));
   }
 
