@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
@@ -60,7 +61,7 @@ public class UserService {
         userRepository.delete(userFromDB.get());
     }
 
-    public User getUser(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado."));
+    public User getUserByToken(JwtAuthenticationToken token) {
+        return userRepository.findById(Long.valueOf(token.getName())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado."));
     }
 }
