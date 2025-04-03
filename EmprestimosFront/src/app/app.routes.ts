@@ -5,12 +5,13 @@ import {
   DashboardEmprestimoComponent
 } from './components/dashboardEmprestimos/page/dashboard-emprestimo/dashboard-emprestimo.component';
 import {AuthComponent} from './components/auth/auth.component';
+import {guardAutenticacaoGuard} from './guards/guard-autenticacao.guard';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: AuthComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'dashboard/:id/emprestimo', component: DashboardEmprestimoComponent},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [guardAutenticacaoGuard]},
+  {path: 'dashboard/:id/emprestimo', component: DashboardEmprestimoComponent, canActivate: [guardAutenticacaoGuard]},
   {path: '**', redirectTo: 'login'}
 ];
 
