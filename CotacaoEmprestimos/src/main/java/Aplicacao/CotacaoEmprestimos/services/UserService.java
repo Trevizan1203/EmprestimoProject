@@ -56,11 +56,13 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado.");
         verificaEmailUnico(userDTO.email(), id);
 
-        if (passwordEncoder.matches(userDTO.oldPassword(), userFromDB.get().getPassword()) && (!userDTO.newPassword().isBlank() && !userDTO.confirmedPassword().isBlank())) {
-            if (userDTO.newPassword().equals(userDTO.confirmedPassword()))
-                userFromDB.get().setPassword(passwordEncoder.encode(userDTO.newPassword()));
-        } else
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Senha incorreta ou diferentes.");
+        if(!(userDTO.oldPassword().isBlank() && userDTO.newPassword().isBlank() && userDTO.confirmedPassword().isBlank())) {
+            if (passwordEncoder.matches(userDTO.oldPassword(), userFromDB.get().getPassword()) && (!userDTO.newPassword().isBlank() && !userDTO.confirmedPassword().isBlank())) {
+                if (userDTO.newPassword().equals(userDTO.confirmedPassword()))
+                    userFromDB.get().setPassword(passwordEncoder.encode(userDTO.newPassword()));
+            } else
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Senha incorreta ou diferentes.");
+        }
 
         if(!userDTO.username().isBlank())
             userFromDB.get().setUsername(userDTO.username());
