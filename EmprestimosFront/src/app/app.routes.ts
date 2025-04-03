@@ -11,6 +11,7 @@ export const routes: Routes = [
   {path: 'login', component: AuthComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/:id/emprestimo', component: DashboardEmprestimoComponent},
+  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({
