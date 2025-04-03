@@ -3,6 +3,7 @@ package Aplicacao.CotacaoEmprestimos.api.controller;
 import Aplicacao.CotacaoEmprestimos.api.DTOs.LoginRequestDTO;
 import Aplicacao.CotacaoEmprestimos.api.DTOs.LoginResponseDTO;
 import Aplicacao.CotacaoEmprestimos.api.DTOs.UserDTO;
+import Aplicacao.CotacaoEmprestimos.api.DTOs.UserUpdateRequest;
 import Aplicacao.CotacaoEmprestimos.entities.User;
 import Aplicacao.CotacaoEmprestimos.services.TokenService;
 import Aplicacao.CotacaoEmprestimos.services.UserService;
@@ -33,6 +34,12 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequest) {
         return ResponseEntity.ok(tokenService.login(loginRequest));
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody UserUpdateRequest userDTO, JwtAuthenticationToken token) {
+        userService.updateUser(userDTO, token);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
