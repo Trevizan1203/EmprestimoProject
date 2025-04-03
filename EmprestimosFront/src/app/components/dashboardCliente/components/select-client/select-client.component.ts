@@ -13,6 +13,8 @@ import {Router} from '@angular/router';
 })
 export class SelectClientComponent implements OnInit {
   clientes: ClienteModel[] = [];
+  clientesFiltrados: ClienteModel[] = [];
+  buscaTermo: String = ''
   clienteEditando: ClienteModel | null = null;
   editForm: FormGroup;
 
@@ -29,6 +31,7 @@ export class SelectClientComponent implements OnInit {
     this.clienteService.getClientes().subscribe({
       next: (data) => {
         this.clientes = data;
+        this.clientesFiltrados = data;
       },
       error: (err) => alert(err.message),
     })
@@ -78,6 +81,16 @@ export class SelectClientComponent implements OnInit {
 
   selecionarCliente(id: number) {
     this.router.navigate([`/dashboard/${id}/emprestimo`])
+  }
+
+  filtrarClientes() {
+    if (!this.buscaTermo) {
+      this.clientesFiltrados = this.clientes;
+    } else {
+      this.clientesFiltrados = this.clientes.filter(cliente =>
+        cliente.nome.toLowerCase().includes(this.buscaTermo.toLowerCase())
+      )
+    }
   }
 
 }

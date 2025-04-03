@@ -1,7 +1,11 @@
 <div class="d-flex flex-column justify-content-center align-items-center flex-column h-100">
-  <h2 class="text-dark py-4">Lista de Clientes</h2>
-  <div class="d-flex justify-content-center w-100 h-100 py-3" style= "background: rgba(0,143,255,0.18);">
-    <div class="table-responsive table-container container d-flex justify-content-center align-items-start">
+  <h2 class="text-dark py-2">Lista de Clientes</h2>
+  <div class="d-flex flex-column justify-content-start align-items-center w-100 h-100 py-2" style= "background: rgba(0,143,255,0.18);">
+    <div class="mb-md-2 d-flex flex-row justify-content-end position-relative" style="width: 90%">
+      <input type="text" class="form-control w-50 mx-md-1" placeholder="Buscar cliente..." [(ngModel)]="buscaTermo" (input)="filtrarClientes()" />
+      <i class="fa-solid fa-magnifying-glass fa-xl position-absolute" style="top: 50%; right: 15px;"></i>
+    </div>
+    <div class="table-responsive table-container container justify-content-center align-items-start">
       <table class="table table-striped">
         <thead class="table-header">
         <tr>
@@ -14,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let cliente of clientes; let i = index">
+        <tr *ngFor="let cliente of clientesFiltrados; let i = index">
           <td>{{ i + 1 }}</td>
           <td *ngIf="!cliente.editing">{{ cliente.nome }}</td>
           <td *ngIf="cliente.editing">
