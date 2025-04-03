@@ -23,6 +23,12 @@ export class UserService {
     )
   }
 
+  getUser(): Observable<UserModel> {
+    return this.http.get<UserModel>(`${this.apiUrl}`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
   private handleError(error: HttpErrorResponse) {
     let errorMessage = "Erro desconhecido";
 
