@@ -45,7 +45,6 @@ export class GraficoComponent implements OnInit {
     this.emprestimoService.getEmprestimosInfo().subscribe({
       next: data => {
         this.contaStatus(data)
-        console.log(this.quantidadeStatus)
         this.doughnutChartDatasets = [
           { data: this.quantidadeStatus, backgroundColor:this.coresStatus, label: 'Status' },
           { data: this.quantidadeValor, backgroundColor:this.coresStatus.map(color => `${color}95`), label: 'Valor' },
