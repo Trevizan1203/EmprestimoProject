@@ -6,6 +6,7 @@ import Aplicacao.CotacaoEmprestimos.entities.Emprestimo;
 import Aplicacao.CotacaoEmprestimos.services.EmprestimoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +52,13 @@ public class EmprestimoController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<List<EmprestimoChartDTO>> getEmprestimosCharts () {
+    public ResponseEntity<List<EmprestimoChartDTO>> getEmprestimosCharts() {
         return ResponseEntity.ok(emprestimoService.getAllEmprestimoChart());
+    }
+
+    @PatchMapping("/pagar/{id}")
+    public ResponseEntity<Void> pagarEmprestimo(@PathVariable("id") Long id) {
+        emprestimoService.pagarEmprestimo(id);
+        return ResponseEntity.ok().build();
     }
 }

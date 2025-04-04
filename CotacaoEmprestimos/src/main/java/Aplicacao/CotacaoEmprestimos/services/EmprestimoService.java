@@ -118,4 +118,10 @@ public class EmprestimoService {
             throw new EntityNotFoundException("Emprestimo nao encontrado");
         emprestimosRepository.deleteById(id);
     }
+
+    @Transactional
+    public void pagarEmprestimo(Long id) {
+        Emprestimo emprestimo = emprestimosRepository.getEmprestimoById(id);
+        emprestimo.pagarEmprestimo();
+    }
 }

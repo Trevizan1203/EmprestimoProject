@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmprestimosRepository extends JpaRepository<Emprestimo, Long> {
+    Emprestimo getEmprestimoById(Long id);
 }
