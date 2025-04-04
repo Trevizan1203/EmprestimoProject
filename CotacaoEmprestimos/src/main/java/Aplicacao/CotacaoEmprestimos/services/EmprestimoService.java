@@ -1,5 +1,6 @@
 package Aplicacao.CotacaoEmprestimos.services;
 
+import Aplicacao.CotacaoEmprestimos.api.DTOs.EmprestimoChartDTO;
 import Aplicacao.CotacaoEmprestimos.api.DTOs.EmprestimoRequestDTO;
 import Aplicacao.CotacaoEmprestimos.entities.Emprestimo;
 import Aplicacao.CotacaoEmprestimos.repository.ClientesRepository;
@@ -13,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,7 +48,7 @@ public class EmprestimoService {
         if (user.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
 
-        Double cotacao = cambioService.obterTaxaCambio(dto.moeda()).get().cotacaoCompra();
+        Double cotacao = cambioService.obterTaxaCambio(dto.moeda(), LocalDate.parse(dto.dataEmprestimo())).get().cotacaoCompra();
 
         Double valorReais = calcularTaxaConversao(dto.valorObtido(), cotacao);
 
@@ -74,11 +76,26 @@ public class EmprestimoService {
         return emprestimosRepository.findAll();
     }
 
+    public List<EmprestimoChartDTO> getAllEmprestimoChart() {
+        List<Emprestimo> emprestimos = getAllEmprestimos();
+        List<EmprestimoChartDTO> emprestimosChart = new ArrayList<>();
+
+        for (Emprestimo emprestimo : emprestimos) {
+            EmprestimoChartDTO aux = new EmprestimoChartDTO(
+                    emprestimo.getId(),
+                    emprestimo.getStatus(),
+                    emprestimo.getValorFinal()
+            );
+            emprestimosChart.add(aux);
+        }
+        return emprestimosChart;
+    }
+
     @Transactional
     public void updateEmprestimo(Long id, @RequestBody EmprestimoRequestDTO dto) {
         Emprestimo emprestimo = getEmprestimoById(id);
 
-        Double cotacao = cambioService.obterTaxaCambio(dto.moeda()).get().cotacaoCompra();
+        Double cotacao = cambioService.obterTaxaCambio(dto.moeda(), LocalDate.parse(dto.dataEmprestimo())).get().cotacaoCompra();
 
         Double valorReais = calcularTaxaConversao(dto.valorObtido(), cotacao);
 

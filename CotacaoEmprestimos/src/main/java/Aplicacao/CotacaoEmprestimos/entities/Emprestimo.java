@@ -24,6 +24,19 @@ public class Emprestimo {
     private Double valorObtido;
     private long meses;
     private Double valorFinal;
+    private boolean pago = false;
+
+    public String getStatus() {
+        if (dataVencimento.isBefore(LocalDate.now()) && pago == false)
+            return "atrasado";
+        else if((dataVencimento.isAfter(LocalDate.now()) || dataVencimento.isEqual(LocalDate.now())) && pago == false)
+            return "andamento";
+        return "pago";
+    }
+
+    public void pagarEmprestimo() {
+        this.pago = true;
+    }
 
     public long getMeses() {
         return meses;

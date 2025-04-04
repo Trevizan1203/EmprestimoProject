@@ -1,5 +1,6 @@
 package Aplicacao.CotacaoEmprestimos.api.controller;
 
+import Aplicacao.CotacaoEmprestimos.api.DTOs.EmprestimoChartDTO;
 import Aplicacao.CotacaoEmprestimos.api.DTOs.EmprestimoRequestDTO;
 import Aplicacao.CotacaoEmprestimos.entities.Emprestimo;
 import Aplicacao.CotacaoEmprestimos.services.EmprestimoService;
@@ -47,5 +48,10 @@ public class EmprestimoController {
     public ResponseEntity<Void> deleteEmprestimo(@PathVariable("id") Long id) {
         emprestimoService.deleteEmprestimoById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/charts")
+    public ResponseEntity<List<EmprestimoChartDTO>> getEmprestimosCharts () {
+        return ResponseEntity.ok(emprestimoService.getAllEmprestimoChart());
     }
 }
