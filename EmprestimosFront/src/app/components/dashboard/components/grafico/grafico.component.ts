@@ -21,6 +21,8 @@ export class GraficoComponent implements OnInit {
   constructor(private emprestimoService: EmprestimoService, private notificationService: NotificationService) {
   }
 
+  readonly coresStatus = ['#0061cf', '#1bff00', '#ff0000'];
+
   contaStatus(data: EmprestimoChartModel[]) {
     data.forEach(emprestimo => {
       switch (emprestimo.status) {
@@ -40,14 +42,13 @@ export class GraficoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.quantidadeStatus.forEach((quantidade) => quantidade = 0)
     this.emprestimoService.getEmprestimosInfo().subscribe({
       next: data => {
         this.contaStatus(data)
         console.log(this.quantidadeStatus)
         this.doughnutChartDatasets = [
-          { data: this.quantidadeStatus, label: 'Status' },
-          { data: this.quantidadeValor, label: 'Valor' },
+          { data: this.quantidadeStatus, backgroundColor:this.coresStatus, label: 'Status' },
+          { data: this.quantidadeValor, backgroundColor:this.coresStatus.map(color => `${color}95`), label: 'Valor' },
           ]
         },
       error: error => this.notificationService.showToast(error, 'danger')
@@ -56,12 +57,9 @@ export class GraficoComponent implements OnInit {
 
   public doughnutChartLabels: string[] = [ 'Em Andamento', 'Pagos', 'Atrasados' ];
   public doughnutChartDatasets: ChartConfiguration<'doughnut'>['data']['datasets'] = [
-    { data: this.quantidadeStatus, label: 'Status'},
-    { data: [ 350, 450, 100 ], label: 'Series A' },
-    { data: [ 50, 150, 120 ], label: 'Series B' }
   ];
 
   public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
-    responsive: true
+    responsive: false
   };
 }
