@@ -10,6 +10,7 @@ import {
   withInterceptors,
   withInterceptorsFromDi
 } from '@angular/common/http';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const TokenInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
   const allowedRoutes = ['/users', '/users/login'];
@@ -35,6 +36,6 @@ export const appConfig: ApplicationConfig = {
         TokenInterceptor
       ]),
       withInterceptorsFromDi()
-    ),
+    ), provideCharts(withDefaultRegisterables()),
   ]
 };
