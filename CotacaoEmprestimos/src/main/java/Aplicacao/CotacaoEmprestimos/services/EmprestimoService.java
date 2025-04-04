@@ -85,6 +85,7 @@ public class EmprestimoService {
                     emprestimo.getId(),
                     emprestimo.getStatus(),
                     emprestimo.getValorFinal(),
+                    emprestimo.getValorObtido() * emprestimo.getTaxaConversao(),
                     emprestimo.getDataEmprestimo(),
                     emprestimo.getDataVencimento()
             );

@@ -6,6 +6,7 @@ public record EmprestimoChartDTO(
         Long id,
         String status,
         Double valorFinal,
+        Double valorObtido,
         LocalDate dataEmprestimo,
         LocalDate dataVencimento
 ) {
