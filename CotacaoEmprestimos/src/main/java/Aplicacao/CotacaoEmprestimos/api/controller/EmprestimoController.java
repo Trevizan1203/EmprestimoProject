@@ -50,7 +50,7 @@ public class EmprestimoController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/charts")
+    @GetMapping("/info")
     public ResponseEntity<List<EmprestimoChartDTO>> getEmprestimosCharts () {
         return ResponseEntity.ok(emprestimoService.getAllEmprestimoChart());
     }
