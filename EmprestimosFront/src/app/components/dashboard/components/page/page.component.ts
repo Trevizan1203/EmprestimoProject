@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {GraficoComponent} from '../grafico/grafico.component';
+import {GraficoComponent} from '../graficos/pizza/grafico.component';
 import {HeaderComponent} from '../header/header.component';
 
 @Component({

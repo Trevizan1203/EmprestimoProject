@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 import {ChartConfiguration} from 'chart.js';
-import {EmprestimoService} from '../../../../services/API/emprestimo.service';
-import {EmprestimoChartModel} from '../../../../models/emprestimo-chart-model';
-import {NotificationService} from '../../../../services/notification.service';
+import {EmprestimoService} from '../../../../../services/API/emprestimo.service';
+import {EmprestimoChartModel} from '../../../../../models/emprestimo-chart-model';
+import {NotificationService} from '../../../../../services/notification.service';
 
 @Component({
-  selector: 'app-grafico',
+  selector: 'app-pizza',
   imports: [
     BaseChartDirective
   ],
@@ -60,6 +60,6 @@ export class GraficoComponent implements OnInit {
   ];
 
   public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
-    responsive: false
+    responsive: true
   };
 }
