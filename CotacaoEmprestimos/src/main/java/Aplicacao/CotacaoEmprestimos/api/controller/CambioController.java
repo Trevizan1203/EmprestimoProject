@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Tag(name = "Cambio")
@@ -23,7 +24,7 @@ public class CambioController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Optional<CotacaoDTO>> getCambio(String moeda) {
-        return ResponseEntity.ok(cambioService.obterTaxaCambio(moeda));
+    public ResponseEntity<Optional<CotacaoDTO>> getCambio(String moeda, String data) {
+        return ResponseEntity.ok(cambioService.obterTaxaCambio(moeda, LocalDate.parse(data)));
     }
 }

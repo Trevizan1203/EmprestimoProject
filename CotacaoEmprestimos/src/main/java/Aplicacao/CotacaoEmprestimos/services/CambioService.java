@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -19,8 +20,8 @@ public class CambioService {
         this.webClient = webClient;
     }
 
-    public Optional<CotacaoDTO> obterTaxaCambio (String moeda) {
-        String data = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
+    public Optional<CotacaoDTO> obterTaxaCambio (String moeda, LocalDate dataEmprestimo) {
+        String data = dataEmprestimo.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"));
         String url = "CotacaoMoedaDia(moeda=@moeda,dataCotacao=@dataCotacao)?@moeda='" + moeda + "'&@dataCotacao='" + data + "'&$format=json";
 
         try {
@@ -28,6 +29,8 @@ public class CambioService {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode jsonNode = mapper.readTree(response);
             JsonNode valores = jsonNode.get("value");
+            if(valores.size() == 0)
+                return obterTaxaCambio(moeda, dataEmprestimo.minusDays(1));
 
             if (valores != null && valores.isArray() && valores.size() > 0) {
                 JsonNode cotacao = valores.get(valores.size() - 1);
