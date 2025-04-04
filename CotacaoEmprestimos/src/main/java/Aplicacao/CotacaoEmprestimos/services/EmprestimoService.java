@@ -84,7 +84,9 @@ public class EmprestimoService {
             EmprestimoChartDTO aux = new EmprestimoChartDTO(
                     emprestimo.getId(),
                     emprestimo.getStatus(),
-                    emprestimo.getValorFinal()
+                    emprestimo.getValorFinal(),
+                    emprestimo.getDataEmprestimo(),
+                    emprestimo.getDataVencimento()
             );
             emprestimosChart.add(aux);
         }
