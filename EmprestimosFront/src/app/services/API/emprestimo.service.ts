@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {EmprestimoModel} from '../../models/emprestimo-model';
 import {catchError, Observable, throwError} from 'rxjs';
+import {EmprestimoChartModel} from '../../models/emprestimo-chart-model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,18 @@ export class EmprestimoService {
 
   deleteEmprestimo(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  getEmprestimosInfo(): Observable<EmprestimoChartModel[]> {
+    return this.http.get<EmprestimoChartModel[]>(`${this.apiUrl}/info`).pipe(
+      catchError(this.handleError)
+    )
+  }
+
+  pagarEmprestimo(id: number): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/pagar/${id}`, { status: 'pago' }).pipe(
       catchError(this.handleError)
     )
   }
