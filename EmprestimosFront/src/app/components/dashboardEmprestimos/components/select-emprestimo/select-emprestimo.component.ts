@@ -45,6 +45,16 @@ export class SelectEmprestimoComponent implements OnInit {
     emprestimo.expandido = !emprestimo.expandido;
   }
 
+  pagar(id: number) {
+    if(confirm(`Deseja pagar seu emprestimo?`))
+      this.emprestimoService.pagarEmprestimo(id).subscribe({
+        next: () => {
+          this.notificationService.showToast("Emprestimo pago!", "success")
+        },
+        error: err => this.notificationService.showToast(err, "danger")
+      })
+  }
+
   deletarEmprestimo(id: number) {
     if(confirm("Tem certeza que deseja cancelar esse emprestimo?")) {
       this.emprestimoService.deleteEmprestimo(id).subscribe({

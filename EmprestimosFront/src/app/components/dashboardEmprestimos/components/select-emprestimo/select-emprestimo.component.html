@@ -23,10 +23,9 @@
           <td>{{ emprestimo.dataVencimento | date:'dd/MM/yyyy' }}</td>
           <td>
             <div class="d-flex justify-content-end">
-              <button class="btn btn-info btn-sm me-2" (click)="toggleCollapse(emprestimo)">
-                Detalhes
-              </button>
-              <button class="btn btn-warning btn-sm me-2" (click)="editarEmprestimo(emprestimo)">Editar</button>
+              <button class="btn btn-success btn-sm me-1" (click)="pagar(emprestimo.id)">Pagar</button>
+              <button class="btn btn-info btn-sm me-1" (click)="toggleCollapse(emprestimo)">Detalhes</button>
+              <button class="btn btn-warning btn-sm me-1" (click)="editarEmprestimo(emprestimo)">Editar</button>
               <button class="btn btn-danger btn-sm " (click)="deletarEmprestimo(emprestimo.id)">Deletar</button>
             </div>
           </td>
