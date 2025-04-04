@@ -27,4 +27,8 @@ export class ToolsComponent {
   logout() {
     this.router.navigateByUrl('');
   }
+
+  info() {
+    this.router.navigateByUrl('/info');
+  }
 }
