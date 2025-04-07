@@ -2,12 +2,14 @@ package Aplicacao.CotacaoEmprestimos.services;
 
 import Aplicacao.CotacaoEmprestimos.api.DTOs.EmprestimoChartDTO;
 import Aplicacao.CotacaoEmprestimos.api.DTOs.EmprestimoRequestDTO;
+import Aplicacao.CotacaoEmprestimos.entities.Cliente;
 import Aplicacao.CotacaoEmprestimos.entities.Emprestimo;
 import Aplicacao.CotacaoEmprestimos.repository.ClientesRepository;
 import Aplicacao.CotacaoEmprestimos.repository.EmprestimosRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,11 +25,13 @@ public class EmprestimoService {
     private final ClientesRepository clientesRepository;
     private final EmprestimosRepository emprestimosRepository;
     private final CambioService cambioService;
+    private final ClienteService clienteService;
 
-    public EmprestimoService(ClientesRepository clientesRepository, EmprestimosRepository emprestimosRepository, CambioService cambioService) {
+    public EmprestimoService(ClientesRepository clientesRepository, EmprestimosRepository emprestimosRepository, CambioService cambioService, ClienteService clienteService) {
         this.clientesRepository = clientesRepository;
         this.emprestimosRepository = emprestimosRepository;
         this.cambioService = cambioService;
+        this.clienteService = clienteService;
     }
 
     private Double calcularValorFinalComJuros(Double valor, Double taxaJuros, long meses) {
@@ -76,8 +80,18 @@ public class EmprestimoService {
         return emprestimosRepository.findAll();
     }
 
-    public List<EmprestimoChartDTO> getAllEmprestimoChart() {
-        List<Emprestimo> emprestimos = getAllEmprestimos();
+    private List<Emprestimo> getEmprestimosByCliente(Cliente cliente) {
+        return emprestimosRepository.getEmprestimoByCliente(cliente);
+    }
+
+    public List<EmprestimoChartDTO> getAllEmprestimoChart(JwtAuthenticationToken token) {
+        List<Cliente> clientes = clienteService.getAllClientesByUser(token);
+        List<Emprestimo> emprestimos =  new ArrayList<>();
+
+        for (Cliente cliente : clientes) {
+            emprestimos.addAll(getEmprestimosByCliente(cliente));
+        }
+
         List<EmprestimoChartDTO> emprestimosChart = new ArrayList<>();
 
         for (Emprestimo emprestimo : emprestimos) {

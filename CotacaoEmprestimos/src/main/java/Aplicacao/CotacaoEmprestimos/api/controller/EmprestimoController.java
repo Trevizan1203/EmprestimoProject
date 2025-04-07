@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,8 +53,8 @@ public class EmprestimoController {
     }
 
     @GetMapping("/info")
-    public ResponseEntity<List<EmprestimoChartDTO>> getEmprestimosCharts() {
-        return ResponseEntity.ok(emprestimoService.getAllEmprestimoChart());
+    public ResponseEntity<List<EmprestimoChartDTO>> getEmprestimosCharts(JwtAuthenticationToken token) {
+        return ResponseEntity.ok(emprestimoService.getAllEmprestimoChart(token));
     }
 
     @PatchMapping("/pagar/{id}")
