@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 import {ChartConfiguration} from 'chart.js';
 import {EmprestimoService} from '../../../../../services/API/emprestimo.service';
@@ -13,15 +13,18 @@ import {NotificationService} from '../../../../../services/notification.service'
   templateUrl: './grafico.component.html',
   styleUrl: './grafico.component.css'
 })
-export class GraficoComponent implements OnInit {
+export class GraficoComponent {
   quantidadeStatus: number[] = [0, 0, 0]
+  @Input()
+  emprestimos: EmprestimoChartModel[] = []
   quantidadeValor: number[] = [0, 0, 0]
   //0 para em andamento, 1 para pago, 2 para atrasado
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   constructor(private emprestimoService: EmprestimoService, private notificationService: NotificationService) {
   }
 
-  readonly coresStatus = ['#0061cf', '#1bff00', '#ff0000'];
+  readonly coresStatus = ['#ffb700', '#1bff00', '#ff0000'];
 
   contaStatus(data: EmprestimoChartModel[]) {
     data.forEach(emprestimo => {
@@ -41,17 +44,16 @@ export class GraficoComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.emprestimoService.getEmprestimosInfo().subscribe({
-      next: data => {
-        this.contaStatus(data)
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['emprestimos']){
+      this.quantidadeStatus = [0,0,0]
+      this.quantidadeValor = [0,0,0]
+        this.contaStatus(this.emprestimos)
         this.doughnutChartDatasets = [
           { data: this.quantidadeStatus, backgroundColor:this.coresStatus, label: 'Status' },
           { data: this.quantidadeValor, backgroundColor:this.coresStatus.map(color => `${color}95`), label: 'Valor' },
           ]
-        },
-      error: error => this.notificationService.showToast(error, 'danger')
-    })
+    }
   }
 
   public doughnutChartLabels: string[] = [ 'Em Andamento', 'Pagos', 'Atrasados' ];

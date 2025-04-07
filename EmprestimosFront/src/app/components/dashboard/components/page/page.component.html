@@ -1,30 +1,30 @@
 <div class="d-flex flex-column vh-100 w-100">
   <div>
-    <app-header></app-header>
+    <app-header (filtro)="aplicarFiltro($event)"></app-header>
   </div>
   <div class="d-flex flex-row h-100 w-100" style="background-color: lightgray">
     <div class="w-25 p-2">
       <div class="d-flex flex-column justify-content-center align-items-center bg-white h-100">
         <h2 class="mb-5">Empréstimos</h2>
-        <app-pizza></app-pizza>
+        <app-pizza [emprestimos]="emprestimosFiltrados"></app-pizza>
       </div>
     </div>
     <div class="d-flex flex-column bg-secondary w-50 h-100">
       <div class="h-50 d-flex justify-content-center align-items-center p-2" style="background-color: lightgray">
         <div class="h-100 w-100 bg-white d-flex align-items-center justify-content-center">
-          <app-barra class="w-75 h-100"></app-barra>
+          <app-barra [emprestimos]="emprestimosFiltrados" class="w-75 h-100"></app-barra>
         </div>
       </div>
       <div class="h-50 d-flex justify-content-center align-items-center p-2" style="background-color: lightgray">
         <div class="h-100 w-100 bg-white d-flex align-items-center justify-content-center">
-          <app-barra-futura class="w-75 h-100"></app-barra-futura>
+          <app-barra-futura [emprestimos]="emprestimosFiltrados" class="w-75 h-100"></app-barra-futura>
         </div>
       </div>
     </div>
     <div class="h-100 w-25 p-2" style="background-color: lightgray">
-      <div class="h-100 d-flex flex-column bg-white">
+      <div class="h-100 d-flex flex-column bg-white px-2">
         <h3 class="text-center pt-2">Histórico</h3>
-        <app-history></app-history>
+        <app-history [emprestimos]="emprestimosFiltrados"></app-history>
       </div>
     </div>
   </div>
