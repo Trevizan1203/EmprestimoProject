@@ -79,7 +79,7 @@ export class BarraFuturaComponent {
     scales: {
       y: {
         title: { display: true, text: 'Valor à Receber (R$)' },
-        beginAtZero: true
+        beginAtZero: true,
       }
     }
   };

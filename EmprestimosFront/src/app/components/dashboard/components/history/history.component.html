@@ -1,0 +1,33 @@
+<div class="scrollable-container">
+
+  <div class="d-flex h-100 flex-column align-items-center justify-content-center">
+    <div class="card d-flex flex-column justify-content-start align-items-start border border-1 border-black mt-1 mx-2"
+         *ngFor="let emprestimo of emprestimos; let i = index"
+         [ngClass]="{
+         'pago-class': emprestimo.status === 'pago',
+         'andamento-class': emprestimo.status === 'andamento',
+         'atrasado-class': emprestimo.status === 'atrasado'
+       }">
+
+      <div class="card-header w-100 d-flex justify-content-between">
+        <span>{{i+1}} - {{emprestimo.status | uppercase}}</span>
+      </div>
+
+      <div class="card-body w-100 text-uppercase">
+        <div class="mb-1">
+          <strong>Data do Empréstimo:</strong> {{emprestimo.dataEmprestimo | date: 'dd-MM-yyyy'}}
+        </div>
+        <div class="mb-1">
+          <strong>Data de Vencimento:</strong> {{emprestimo.dataVencimento | date: 'dd-MM-yyyy'}}
+        </div>
+        <div class="mb-1">
+          <strong>Valor Emprestado:</strong> {{emprestimo.valorObtido | number:'1.2-2'}}
+        </div>
+        <div class="mb-1">
+          <strong>Valor a Pagar:</strong> {{emprestimo.valorFinal | number:'1.2-2'}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
