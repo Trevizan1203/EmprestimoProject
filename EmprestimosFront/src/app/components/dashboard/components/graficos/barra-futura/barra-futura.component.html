@@ -1,0 +1,13 @@
+<div *ngIf="!carregado" class="loading d-flex flex-column justify-content-center align-items-center h-100">
+  <i class="fa fa-spinner fa-spin fa-2xl mb-4"></i>
+  <p>Carregando...</p>
+</div>
+<div *ngIf="carregado">
+  <canvas baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [type]="'bar'">
+  </canvas>
+</div>
